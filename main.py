@@ -23,7 +23,7 @@ async def search_video_on_youtube(
     page: int = Query(1, ge=1),
     page_size: int = Query(8, ge=1, le=50)
 ):
-    search = Search(query, use_oauth=True, allow_oauth_cache=True)
+    search = Search(query)
     results = search.videos
     videos = []
     
@@ -58,7 +58,7 @@ async def search_video_on_youtube(
 @api_router.get("/video/{video_id}")
 async def get_video_detail(video_id: str = Path(..., min_length=1, max_length=100)):
     url = f"https://www.youtube.com/watch?v={video_id}"
-    video = YouTube(url=url, use_oauth=True, allow_oauth_cache=True)
+    video = YouTube(url=url)
     return {
         "video_id": video.video_id,
         "title": video.title,
@@ -82,7 +82,7 @@ async def download_video(
     background_tasks: BackgroundTasks = BackgroundTasks()
 ):
     url = f"https://www.youtube.com/watch?v={video_id}"
-    video = YouTube(url=url, use_oauth=True, allow_oauth_cache=True)
+    video = YouTube(url=url)
     stream = video.streams.get_by_itag(itag)
     
     if not stream:
