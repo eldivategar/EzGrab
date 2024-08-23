@@ -3,9 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 def add_cors_middleware(app):
     origins = [
         'http://localhost:5173',
-        '.eldivategar.tech',
-        '.vercel.app', 
-        '.now.sh',
+        'https://ezgrab.eldivategar.tech',
         ]
     app.add_middleware(
         CORSMiddleware,
